@@ -1,3 +1,5 @@
+This fork includes a two-way-meander for rectangualr patterns
+
 Mecode
 ======
 
