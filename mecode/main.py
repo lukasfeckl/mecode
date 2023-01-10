@@ -783,7 +783,70 @@ class G(object):
 
         if was_absolute:
             self.absolute()
+            
+    def meander_2way(self, x, y, spacing, start='LL', orientation='x',
+                minor_feed=None):
+        """ Like meander, but goes back to starting point by reversing the pattern
 
+        """
+        if start.upper() == 'UL':
+            x, y = x, -y
+        elif start.upper() == 'UR':
+            x, y = -x, -y
+        elif start.upper() == 'LR':
+            x, y = -x, y
+
+        # Major axis is the parallel lines, minor axis is the jog.
+        if orientation == 'x':
+            major, major_name = x, 'x'
+            minor, minor_name = y, 'y'
+        else:
+            major, major_name = y, 'y'
+            minor, minor_name = x, 'x'
+
+        actual_spacing = self._meander_spacing(minor, spacing)
+        if abs(actual_spacing) != spacing:
+            msg = '{}WARNING! meander spacing updated from {} to {}'
+            self.write(msg.format(self.comment_char, spacing, actual_spacing))
+        spacing = actual_spacing
+        sign = 1
+
+        was_absolute = True
+        if not self.is_relative:
+            self.relative()
+        else:
+            was_absolute = False
+
+        major_feed = self.speed
+        if not minor_feed:
+            minor_feed = self.speed
+        
+        #Forward pass
+        for _ in range(int(self._meander_passes(minor, spacing))):
+            self.move(**{major_name: (sign * major)})
+            if minor_feed != major_feed:
+                self.feed(minor_feed)
+            self.move(**{minor_name: spacing})
+            if minor_feed != major_feed:
+                self.feed(major_feed)
+            sign = -1 * sign
+        self.move(**{major_name: (sign * major)})
+
+        #Backwards pass
+        sign = -1 * sign
+        for _ in range(int(self._meander_passes(minor, spacing))):
+            self.move(**{major_name: (sign * major)})
+            if minor_feed != major_feed:
+                self.feed(minor_feed)
+            self.move(**{minor_name: -1 * spacing})
+            if minor_feed != major_feed:
+                self.feed(major_feed)
+            sign = -1 * sign
+        self.move(**{major_name: (sign * major)})
+
+        if was_absolute:
+            self.absolute()
+            
     def clip(self, axis='z', direction='+x', height=4):
         """ Move the given axis up to the given height while arcing in the
         given direction.
