@@ -1019,6 +1019,30 @@ class G(object):
         else:
             raise Exception("Invalid plotting backend! Choose one of mayavi or matplotlib.")
 
+    def view_2D(self):
+        """ View the generated Gcode in 2D
+
+        Parameters
+        ----------
+        backend : str (default: 'matplotlib')
+            The plotting backend to use, one of 'matplotlib' or 'mayavi'.
+
+        """
+        import numpy as np
+        history = np.array(self.position_history)
+
+
+        import matplotlib.pyplot as plt
+        fig = plt.figure()
+        ax = fig.gca(projection='2d')
+        X, Y = history[:, 0], history[:, 1]
+        ax.plot(X, Y)
+
+        mean_x = X.mean()
+        mean_y = Y.mean()
+
+        plt.show()
+
     def write(self, statement_in, resp_needed=False):
         if self.print_lines is True or (self.print_lines == 'auto' and self.outfile is None):
             print(statement_in)
