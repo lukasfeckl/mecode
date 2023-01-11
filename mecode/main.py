@@ -1038,9 +1038,6 @@ class G(object):
         X, Y = history[:, 0], history[:, 1]
         ax.plot(X, Y)
 
-
-        plt.xticks(np.arange(min(X), max(X), xtickSpace))
-        plt.yticks(np.arange(min(Y), max(Y), ytickSpace))
         
         plt.show()
 
