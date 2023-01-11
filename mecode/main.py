@@ -1019,7 +1019,7 @@ class G(object):
         else:
             raise Exception("Invalid plotting backend! Choose one of mayavi or matplotlib.")
 
-    def view_2D(self):
+    def view_2D(self, xtickSpace=5, ytickSpace=5):
         """ View the generated Gcode in 2D
 
         Parameters
@@ -1039,8 +1039,8 @@ class G(object):
         ax.plot(X, Y)
 
 
-        plt.xticks(np.arange(min(X), max(X), 2.5))
-        plt.yticks(np.arange(min(Y), max(Y), 2.5))
+        plt.xticks(np.arange(min(X), max(X), xtickSpace))
+        plt.yticks(np.arange(min(Y), max(Y), ytickSpace))
         
         plt.show()
 
