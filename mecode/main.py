@@ -1034,7 +1034,7 @@ class G(object):
 
         import matplotlib.pyplot as plt
         fig = plt.figure()
-        ax = fig.gca(projection='2d')
+        ax = fig.gca()
         X, Y = history[:, 0], history[:, 1]
         ax.plot(X, Y)
 
