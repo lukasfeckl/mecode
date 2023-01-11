@@ -1038,10 +1038,9 @@ class G(object):
         X, Y = history[:, 0], history[:, 1]
         ax.plot(X, Y)
 
-
-        plt.xticks(np.arange(min(X), max(X), 2))
-        plt.yticks(np.arange(min(Y), max(Y), 2))
-
+        plt.xlim([min(X), max(X)])
+        plt.ylim([min(Y), max(Y)])
+        
         plt.show()
 
     def write(self, statement_in, resp_needed=False):
