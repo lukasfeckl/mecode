@@ -1038,8 +1038,9 @@ class G(object):
         X, Y = history[:, 0], history[:, 1]
         ax.plot(X, Y)
 
-        mean_x = X.mean()
-        mean_y = Y.mean()
+
+        plt.xticks(np.arange(min(X), max(X), 0.25))
+        plt.yticks(np.arange(min(Y), max(Y), 0.25))
 
         plt.show()
 
