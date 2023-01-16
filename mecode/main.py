@@ -883,7 +883,7 @@ class G(object):
         }
         self.arc(**kwargs)
 
-    def triangular_wave(self, x, y, cycles, start='UR', orientation='x'):
+    def triangular_wave(self, x, y, cycles, start='LL', orientation='x'):
         """ Perform a triangular wave.
 
         Parameters
@@ -1019,7 +1019,7 @@ class G(object):
         else:
             raise Exception("Invalid plotting backend! Choose one of mayavi or matplotlib.")
 
-    def view_2D(self, xtickSpace=5, ytickSpace=5):
+    def view_2D(self):
         """ View the generated Gcode in 2D
 
         Parameters
@@ -1036,8 +1036,10 @@ class G(object):
         fig = plt.figure()
         ax = fig.gca()
         X, Y = history[:, 0], history[:, 1]
-        ax.plot(X, Y)
 
+       
+        ax.plot(X, Y)
+        ax.set_aspect('equal', adjustable='box')
         
         plt.show()
 
