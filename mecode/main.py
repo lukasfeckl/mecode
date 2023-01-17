@@ -406,7 +406,7 @@ class G(object):
         self._update_current_position(x=x, y=y, z=z, **kwargs)
         args = self._format_args(x, y, z, **kwargs)
         cmd = 'G0 ' if rapid else 'G1 '
-        #self.write(cmd + args)
+        self.write(cmd + args)
 
     def abs_move(self, x=None, y=None, z=None, rapid=False, **kwargs):
         """ Same as `move` method, but positions are interpreted as absolute.
