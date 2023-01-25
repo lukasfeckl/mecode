@@ -367,6 +367,10 @@ class G(object):
         """ Move the tool head to the home position (X=0, Y=0).
         """
         self.abs_move(x=0, y=0)
+    def custom(self, cmd):
+        """ Custom commands
+        """
+        self.write(cmd)
 
     def move(self, x=None, y=None, z=None, rapid=False, **kwargs):
         """ Move the tool head to the given position. This method operates in
